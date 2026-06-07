@@ -13,7 +13,7 @@ def get_model():
         print("Loading AI model...")
 
         _model = SentenceTransformer(
-            "sentence-transformers/all-mpnet-base-v2"
+             "sentence-transformers/all-MiniLM-L6-v2"
         )
 
         print("AI model loaded.")
