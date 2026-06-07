@@ -1,0 +1,112 @@
+# ======================
+# Python
+# ======================
+
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.pyd
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Python packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Pytest
+.pytest_cache/
+
+# Coverage
+.coverage
+htmlcov/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment Variables
+.env
+.env.*
+
+# SQLite
+*.db
+*.sqlite3
+
+# Logs
+*.log
+
+# VS Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# ======================
+# FastAPI
+# ======================
+
+uploads/
+reports/
+
+# Model files (optional)
+*.pt
+*.pth
+*.h5
+*.ckpt
+
+# Hugging Face cache
+.cache/
+huggingface/
+hf_cache/
+
+# ======================
+# Node
+# ======================
+
+node_modules/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build
+dist/
+build/
+
+# Vite
+.vite/
+
+# ======================
+# OS
+# ======================
+
+.DS_Store
+Thumbs.db
+
+# ======================
+# Temporary Files
+# ======================
+
+*.tmp
+*.temp
+
+# ======================
+# Generated PDFs
+# ======================
+
+*.pdf
+# Uploaded resumes
+backend/uploads/
+
+# Generated reports
+backend/reports/
+
+# Keep sample PDFs if needed
+# *.pdf
