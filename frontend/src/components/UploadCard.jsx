@@ -11,6 +11,10 @@ function UploadCard({ setResult, setNotification }) {
       setNotification("Please upload a PDF resume before analyzing.");
       return;
     }
+    if (!jobDescription || !jobDescription.trim()) {
+      setNotification("Please paste the job description before analyzing.");
+      return;
+    }
 
     setNotification("");
     setLoading(true);
@@ -25,10 +29,25 @@ function UploadCard({ setResult, setNotification }) {
       setNotification("Analysis complete — review your insights below.");
     } catch (error) {
       setResult(null);
-      setNotification(
-        error.response?.data?.detail ||
-          "Analysis failed. Check your PDF and try again."
-      );
+      
+      let errorMsg = "Analysis failed. Check your PDF and try again.";
+      const detail = error.response?.data?.detail;
+      if (detail) {
+        if (typeof detail === "string") {
+          errorMsg = detail;
+        } else if (Array.isArray(detail)) {
+          errorMsg = detail
+            .map((err) => {
+              const field = err.loc ? err.loc[err.loc.length - 1] : "field";
+              return `${field}: ${err.msg}`;
+            })
+            .join(", ");
+        } else if (typeof detail === "object") {
+          errorMsg = JSON.stringify(detail);
+        }
+      }
+      
+      setNotification(errorMsg);
       console.error(error);
     } finally {
       setLoading(false);

@@ -1,3 +1,4 @@
+import os
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -29,16 +30,27 @@ app = FastAPI(
 
 # CORS
 
+frontend_url = os.getenv("FRONTEND_URL")
+origins = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:3000",
+]
+if frontend_url:
+    origins.append(frontend_url)
+    if frontend_url.endswith("/"):
+        origins.append(frontend_url[:-1])
+else:
+    origins = ["*"]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173"
-    ],
-    allow_credentials=True,
+    allow_origins=origins,
+    allow_credentials=False if "*" in origins else True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 
 # Home Route
@@ -64,11 +76,23 @@ async def analyze(
 
     resume: UploadFile = File(...),
 
-    job_description: str = Form(...)
+    job_description: str = Form("")
 
 ):
 
     try:
+
+        # Validate Job Description
+
+        if not job_description.strip():
+
+            raise HTTPException(
+
+                status_code=400,
+
+                detail="Job description cannot be empty."
+
+            )
 
         # Validate PDF
 

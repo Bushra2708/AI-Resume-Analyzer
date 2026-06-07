@@ -1,56 +1,16 @@
-from sentence_transformers import SentenceTransformer
+from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-_model = None
 
+def semantic_similarity(resume_text, job_description):
+    resume_text = str(resume_text or "").strip()
+    job_description = str(job_description or "").strip()
 
-def get_model():
+    if not resume_text or not job_description:
+        return 0.0
 
-    global _model
+    corpus = [resume_text, job_description]
+    vectorizer = TfidfVectorizer().fit_transform(corpus)
+    score = cosine_similarity(vectorizer[0:1], vectorizer[1:2])[0][0]
 
-    if _model is None:
-
-        print("Loading AI model...")
-
-        _model = SentenceTransformer(
-            "sentence-transformers/all-MiniLM-L6-v2"
-        )
-
-        print("AI model loaded.")
-
-    return _model
-
-
-def get_embedding(text):
-
-    model = get_model()
-
-    text = str(text).strip()
-
-    return model.encode(text)
-
-
-def semantic_similarity(
-    resume_text,
-    job_description
-):
-
-    resume_embedding = get_embedding(
-        resume_text
-    )
-
-    jd_embedding = get_embedding(
-        job_description
-    )
-
-    score = cosine_similarity(
-        [resume_embedding],
-        [jd_embedding]
-    )
-
-    return float(
-        round(
-            float(score[0][0]) * 100,
-            2
-        )
-    )
+    return float(round(score * 100, 2))

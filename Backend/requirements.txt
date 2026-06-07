@@ -1,11 +1,5 @@
 fastapi
 uvicorn
-sentence-transformers
-torch
 scikit-learn
-numpy
-pandas
 pdfplumber
-pymupdf
 python-multipart
-spacy
