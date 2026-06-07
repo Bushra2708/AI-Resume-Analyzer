@@ -1,10 +1,11 @@
 fastapi
 uvicorn
 sentence-transformers
+torch
 scikit-learn
-pdfplumber
-pymupdf
-spacy
-python-multipart
 numpy
 pandas
+pdfplumber
+pymupdf
+python-multipart
+spacy

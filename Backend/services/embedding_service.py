@@ -13,7 +13,7 @@ def get_model():
         print("Loading AI model...")
 
         _model = SentenceTransformer(
-             "sentence-transformers/all-MiniLM-L6-v2"
+            "sentence-transformers/all-MiniLM-L6-v2"
         )
 
         print("AI model loaded.")
@@ -23,12 +23,11 @@ def get_model():
 
 def get_embedding(text):
 
-    if text is None:
-        text = ""
+    model = get_model()
 
     text = str(text).strip()
 
-    return get_model().encode(text)
+    return model.encode(text)
 
 
 def semantic_similarity(
